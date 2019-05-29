@@ -285,8 +285,8 @@ def playGame(p1, p2, verbose):
     board = newBoard()
     printBoard(board)
     print
-    currentColor = 'x'
-    nextColor = 'o'
+    currentColor = 'o'
+    nextColor = 'x'
 
     while isAnyMovePossible(board, currentColor):
         tempBoard = deepcopy(board)
