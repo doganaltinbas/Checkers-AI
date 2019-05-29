@@ -113,14 +113,14 @@ def canMoveToPosition(board, x1, y1, x2, y2):
 	if color == 'r' and x2 < x1:	# Red men cannot move up
 		return False
 	if x1_x2 == 2: # It could be a capture move
-		if board[(x1+x2)/2][(y1+y2)/2].lower() != getOpponentColor(color):
+		if board[int((x1+x2)/2)][int((y1+y2)/2)].lower() != getOpponentColor(color):
 			# Middle piece must be opponent
 			return False
 	return True
 	
 def isLegalMove(board, move, color):
 	# Check whether move (a list) is a legal move in the board for <color> piece
-	
+	print(move)
 	if len(move) < 2:		
 		return False;
 		
@@ -257,11 +257,10 @@ def printBoard(board):
 					]
 	print ('-'*33, '\t', '-'*41)
 	for i in range(0,8):		
-		print ('|',)
-		print (' | '.join(board[i]), '|'	, '\t|' , ' | '.join(numberedBoard[i]), '|')
+		print ('|',' | '.join(board[i]), '|'	, '\t|' , ' | '.join(numberedBoard[i]), '|')
 		print ('-'*33, '\t', '-'*41)
 	
-def playGame(p1, p2, verbose, t = 150):
+def playGame(p1, p2, verbose):
 	# Takes as input two functions p1 and p2 (each of which
 	# calculates a next move given a board and player color),
 	# and returns a tuple containing 
@@ -275,24 +274,12 @@ def playGame(p1, p2, verbose, t = 150):
 	print
 	currentColor = 'r'
 	nextColor = 'w'
-	p1time = t
-	p2time = t
-	p1realTime = t
-	p2realTime = t
 	movesRemaining = 150
 	
 	while isAnyMovePossible(board, currentColor) == True:
 		tempBoard = deepcopy(board)
-		t1 = time.time()
-		nextMove = p1(tempBoard, currentColor, p1time, movesRemaining)
-		t2 = time.time()
-		p1time = p1time - (t2 - t1)
-		p1realTime = p1realTime - (t2 - t1)
-		if (p1realTime < 0):
-			if currentColor == "r":
-				return (board, 0, 24, "Timeout")
-			else:
-				return (board, 24, 0, "Timeout")
+		nextMove = p1(tempBoard, currentColor)
+
 		if isLegalMove(board, nextMove, currentColor) == True:			
 			doMove(board, nextMove)
 			
@@ -305,16 +292,12 @@ def playGame(p1, p2, verbose, t = 150):
 		(p1, p2) = (p2, p1)
 		(p1time, p2time) = (p2time, p1time)
 		(currentColor, nextColor) = (nextColor, currentColor)
-		if verbose == True:
+
+		if verbose:
 			printBoard(board)
-			print ("Pieces remaining:", currentColor, "=", countPieces(board, currentColor))
-			print (nextColor, "=", countPieces(board, nextColor), "Moves left =", movesRemaining)
-			print ("Clock remaining: %s=%f, %s=%f" %(currentColor, p1time, nextColor, p2time))
-			
-		movesRemaining = movesRemaining - 1
-		if movesRemaining == 0:
-			return (board, countPieces(board, 'r'), countPieces(board, 'w'), "Drawn")
-			
+			print("Pieces remaining:", currentColor, "=", countPieces(board, currentColor))
+			print(nextColor, "=", countPieces(board, nextColor))
+
 	return (board, countPieces(board, 'r'), countPieces(board, 'w'), "Won")
 
 
@@ -322,12 +305,12 @@ if __name__ == "__main__":
 
 	beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
 
-	exec("from Player" + beginning + " import nextMove")
+	exec("from Player" + str(beginning) + " import nextMove")
 	p1 = nextMove
 	exec("from Player" + str(int(beginning) +((int(beginning)%2))) + " import nextMove")
 	p2 = nextMove
 
-	result = playGame(p1, p2, verbose, clockTime)	
+	result = playGame(p1, p2, True)
 
 	printBoard(result[0])
 	

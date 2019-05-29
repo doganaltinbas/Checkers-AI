@@ -60,7 +60,7 @@ def evaluation(board, color, depth, turn, opponentColor, alpha, beta):
                 value -= 3
         return value
 
-def nextMove(board, color, time, movesRemaining):
+def nextMove(board, color):
     moves = getAllPossibleMoves(board, color)
     opponentColor = gamePlay.getOpponentColor(color)
     depth = 5
