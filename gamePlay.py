@@ -295,7 +295,7 @@ def playGame(p1, p2, verbose):
             doMove(board, nextMove)
 
         else:
-            if currentColor == "r":
+            if currentColor == "x":
                 return (board, -1, 1, "Bad Move: %s" % str(nextMove))
             else:
                 return (board, 1, -1, "Bad Move: %s" % str(nextMove))
