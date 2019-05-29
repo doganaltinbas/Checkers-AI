@@ -2,9 +2,9 @@ import gamePlay
 from copy import deepcopy
 
 def gridToSerial(x, y):
-	# Returns the serial 1~32 of cell given the grid position(0,0)~(7,7)
+	# Returns the serial 1~24 of cell given the grid position(0,0)~(7,5)
 	
-	return 4*x+y//2+1
+	return 3*x+y//2+1
 	
 def getAllJumpMovesAtPosition(board, x, y):
 	# Get all jump moves of position board(x,y)
