@@ -63,7 +63,7 @@ def doMovePosition(board, x1, y1, x2, y2):
     board[x1][y1] = ' '
 
     if abs(x1 - x2) == 2:  # It's a capture move
-        board[(x1 + x2) / 2][(y1 + y2) / 2] = ' '
+        board[int((x1 + x2) / 2)][int((y1 + y2) / 2)] = ' '
         isCapture = True
 
     if x2 == 0 or x2 == 7:
