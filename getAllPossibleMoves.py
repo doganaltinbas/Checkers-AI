@@ -69,7 +69,7 @@ def getAllPossibleMoves(board, color):
 	isCapturePossible = gamePlay.isCapturePossible(board, color)
 	
 	# Loop through all board positions
-	for piece in range(1, 33):
+	for piece in range(1, 25):
 		xy = gamePlay.serialToGrid(piece)
 		x = xy[0]
 		y = xy[1]

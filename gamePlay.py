@@ -36,7 +36,7 @@ def isCapturePossible(board, color):
     # Returns whether any of the <color> pieces can make a capture at this time
 
     # Loop through all board positions
-    for piece in range(1, 33):
+    for piece in range(1, 25):
         xy = serialToGrid(piece)
         x = xy[0]
         y = xy[1]
@@ -100,7 +100,7 @@ def doMove(board, move):
 def canMoveToPosition(board, x1, y1, x2, y2):
     # Check whether (x1,y1) can move to (x2,y2) in one move (plain or capture)
 
-    if x1 < 0 or y1 < 0 or x2 < 0 or y2 < 0 or x1 > 7 or y1 > 7 or x2 > 7 or y2 > 7:
+    if x1 < 0 or y1 < 0 or x2 < 0 or y2 < 0 or x1 > 7 or y1 > 5 or x2 > 7 or y2 > 5:
         return False
 
     color = board[x1][y1]
@@ -178,7 +178,7 @@ def isAnyMovePossible(board, color):
     # Returns whether any of the <color> pieces can make a valid move (plain or capture) at this time
 
     # Loop through all board positions
-    for piece in range(1, 33):
+    for piece in range(1, 25):
         xy = serialToGrid(piece)
         x = xy[0]
         y = xy[1]
@@ -211,7 +211,7 @@ def countPieces(board, color):
     count = 0
 
     # Loop through all board positions
-    for piece in range(1, 33):
+    for piece in range(1, 25):
         xy = serialToGrid(piece)
         x = xy[0]
         y = xy[1]
@@ -225,8 +225,7 @@ def countPieces(board, color):
 
 def serialToGrid(serial):
     # Given a piece's serial 1-32 it will return the board grid position (0,0)~(7,7)
-
-    return ((serial - 1) // 4, 2 * ((serial - 1) % 4) + 1 - ((serial - 1) // 4) % 2)
+    return ((serial - 1) // 3, 2 * ((serial - 1) % 3) + 1 - ((serial - 1) // 3) % 4)
 
 
 def newBoard():
@@ -237,18 +236,20 @@ def newBoard():
 
     board = []
     for i in range(8):
-        board.append([' '] * 8)
+        board.append([' '] * 6)
 
-    for i in range(1, 13):
+    for i in range(1, 10):
         xy = serialToGrid(i)
         x = xy[0]
         y = xy[1]
+        print("x:" + str(x) + "\t" + "y:" + str(y))
         board[x][y] = 'x'
 
-    for i in range(21, 33):
+    for i in range(16, 25):
         xy = serialToGrid(i)
         x = xy[0]
         y = xy[1]
+        print("x:" + str(x) + "\t" + "y:" + str(y))
         board[x][y] = 'o'
 
     return board
@@ -257,19 +258,19 @@ def newBoard():
 def printBoard(board):
     # Print a board
     numberedBoard = [
-        ['  ', '1 ', '  ', '2 ', '  ', '3 ', '  ', '4 '],
-        ['5 ', '  ', '6 ', '  ', '7 ', '  ', '8 ', '  '],
-        ['  ', '9 ', '  ', '10', '  ', '11', '  ', '12'],
-        ['13', '  ', '14', '  ', '15', '  ', '16', '  '],
-        ['  ', '17', '  ', '18', '  ', '19', '  ', '20'],
-        ['21', '  ', '22', '  ', '23', '  ', '24', '  '],
-        ['  ', '25', '  ', '26', '  ', '27', '  ', '28'],
-        ['29', '  ', '30', '  ', '31', '  ', '32', '  ']
-    ]
-    print('-' * 33, '\t', '-' * 41)
+		['1 ', '  ', '2 ', '  ', '3 ', '  '],
+		['  ', '4 ', '  ', '5 ', '  ', '6 '],
+		['7 ', '  ', '8 ', '  ', '9 ', '  '],
+		['  ', '10', '  ', '11', '  ', '12'],
+		['13', '  ', '14', '  ', '15', '  '],
+		['  ', '16', '  ', '17', '  ', '18'],
+		['19', '  ', '20', '  ', '21', '  '],
+		['  ', '22', '  ', '23', '  ', '24']
+	]
+    print('-' * 25, '\t', '-' * 30)
     for i in range(0, 8):
         print('|', ' | '.join(board[i]), '|', '\t|', ' | '.join(numberedBoard[i]), '|')
-        print('-' * 33, '\t', '-' * 41)
+        print('-' * 25, '\t', '-' * 30)
 
 
 def playGame(p1, p2, verbose):
