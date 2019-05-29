@@ -20,13 +20,13 @@ def isCapturePossibleFromPosition(board, x, y):
 
     opponent = getOpponentColor(board[x][y])
     # Check whether a jump possible to all four directions
-    if canMoveToPosition(board, x, y, x - 2, y - 2) == True:
+    if canMoveToPosition(board, x, y, x - 2, y - 2):
         return True
-    if canMoveToPosition(board, x, y, x - 2, y + 2) == True:
+    if canMoveToPosition(board, x, y, x - 2, y + 2):
         return True
-    if canMoveToPosition(board, x, y, x + 2, y - 2) == True:
+    if canMoveToPosition(board, x, y, x + 2, y - 2):
         return True
-    if canMoveToPosition(board, x, y, x + 2, y + 2) == True:
+    if canMoveToPosition(board, x, y, x + 2, y + 2):
         return True
 
     return False
@@ -43,7 +43,7 @@ def isCapturePossible(board, color):
 
         # Check whether this board position is our color
         if board[x][y].upper() == color.upper():
-            if isCapturePossibleFromPosition(board, x, y) == True:
+            if isCapturePossibleFromPosition(board, x, y):
                 return True
 
     return False
@@ -230,8 +230,8 @@ def serialToGrid(serial):
 
 def newBoard():
     # Create a new board, 2D array of characters
-    # 'r' for red man, 'w' for white man
-    # 'R' for red king, 'W' for white king
+    # 'x' for red man, 'o' for white man
+    # 'X' for red king, 'O' for white king
     # ' ' for empty
 
     board = []
