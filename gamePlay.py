@@ -267,10 +267,14 @@ def printBoard(board):
 		['19', '  ', '20', '  ', '21', '  '],
 		['  ', '22', '  ', '23', '  ', '24']
 	]
-    print('-' * 25, '\t', '-' * 30)
+
+    columns = ["A", "B", "C", "D", "E", "F"]
+    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
+    print('    ', '   '.join(columns), ' ')
+    print(' ' * 2, '-' * 25, '\t', '-' * 30)
     for i in range(0, 8):
-        print('|', ' | '.join(board[i]), '|', '\t|', ' | '.join(numberedBoard[i]), '|')
-        print('-' * 25, '\t', '-' * 30)
+        print(rows[i], ' ' '|', ' | '.join(board[i]), '|', '\t|', ' | '.join(numberedBoard[i]), '|')
+        print(' ' * 2, '-' * 25, '\t', '-' * 30)
 
 
 def playGame(p1, p2, verbose):
