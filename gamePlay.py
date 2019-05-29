@@ -255,11 +255,11 @@ def printBoard(board):
 					['  ', '25', '  ', '26', '  ', '27', '  ', '28'],
 					['29', '  ', '30', '  ', '31', '  ', '32', '  ']
 					]
-	print '-'*33, '\t', '-'*41
+	print ('-'*33, '\t', '-'*41)
 	for i in range(0,8):		
-		print '|',
-		print ' | '.join(board[i]), '|'	, '\t|' , ' | '.join(numberedBoard[i]), '|'
-		print '-'*33, '\t', '-'*41
+		print ('|',)
+		print (' | '.join(board[i]), '|'	, '\t|' , ' | '.join(numberedBoard[i]), '|')
+		print ('-'*33, '\t', '-'*41)
 	
 def playGame(p1, p2, verbose, t = 150):
 	# Takes as input two functions p1 and p2 (each of which
@@ -307,9 +307,9 @@ def playGame(p1, p2, verbose, t = 150):
 		(currentColor, nextColor) = (nextColor, currentColor)
 		if verbose == True:
 			printBoard(board)
-			print "Pieces remaining:", currentColor, "=", countPieces(board, currentColor),
-			print nextColor, "=", countPieces(board, nextColor), "Moves left =", movesRemaining
-			print "Clock remaining: %s=%f, %s=%f" %(currentColor, p1time, nextColor, p2time)
+			print ("Pieces remaining:", currentColor, "=", countPieces(board, currentColor))
+			print (nextColor, "=", countPieces(board, nextColor), "Moves left =", movesRemaining)
+			print ("Clock remaining: %s=%f, %s=%f" %(currentColor, p1time, nextColor, p2time))
 			
 		movesRemaining = movesRemaining - 1
 		if movesRemaining == 0:
