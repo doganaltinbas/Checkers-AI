@@ -305,6 +305,7 @@ def playGame(p1, p2, verbose):
             else:
                 return (board, 1, -1, "Bad Move: %s" % str(nextMove))
 
+        (p1, p2) = (p2, p1)
         (currentColor, nextColor) = (nextColor, currentColor)
 
         if verbose:
