@@ -225,7 +225,7 @@ def countPieces(board, color):
 
 def serialToGrid(serial):
     # Given a piece's serial 1-32 it will return the board grid position (0,0)~(7,7)
-    return ((serial - 1) // 3, 2 * ((serial - 1) % 3) + 1 - ((serial - 1) // 3) % 4)
+    return ((serial - 1) // 3, 2 * ((serial - 1) % 3) + 1  - ((((serial - 1) // 3) + 1) % 2))
 
 
 def newBoard():
