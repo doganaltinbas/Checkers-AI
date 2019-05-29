@@ -120,10 +120,9 @@ def canMoveToPosition(board, x1, y1, x2, y2):
 	
 def isLegalMove(board, move, color):
 	# Check whether move (a list) is a legal move in the board for <color> piece
-	print(move)
-	if len(move) < 2:		
-		return False;
-		
+	if len(move) < 2:
+		return False
+
 	# Get the starting move position
 	xy = serialToGrid(move[0])
 	x1 = xy[0]
@@ -274,13 +273,12 @@ def playGame(p1, p2, verbose):
 	print
 	currentColor = 'r'
 	nextColor = 'w'
-	movesRemaining = 150
-	
-	while isAnyMovePossible(board, currentColor) == True:
+
+	while isAnyMovePossible(board, currentColor):
 		tempBoard = deepcopy(board)
 		nextMove = p1(tempBoard, currentColor)
 
-		if isLegalMove(board, nextMove, currentColor) == True:			
+		if isLegalMove(board, nextMove, currentColor):
 			doMove(board, nextMove)
 			
 		else:
@@ -289,8 +287,6 @@ def playGame(p1, p2, verbose):
 			else:
 				return (board, 1, -1, "Bad Move: %s" %str(nextMove))
 
-		(p1, p2) = (p2, p1)
-		(p1time, p2time) = (p2time, p1time)
 		(currentColor, nextColor) = (nextColor, currentColor)
 
 		if verbose:
@@ -307,9 +303,8 @@ if __name__ == "__main__":
 
 	exec("from Player" + str(beginning) + " import nextMove")
 	p1 = nextMove
-	exec("from Player" + str(int(beginning) +((int(beginning)%2))) + " import nextMove")
+	exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
 	p2 = nextMove
-
 	result = playGame(p1, p2, True)
 
 	printBoard(result[0])

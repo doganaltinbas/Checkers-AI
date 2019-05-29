@@ -7,13 +7,17 @@ def nextMove(board, color):
 
 	moved = False
 	while moved == False:
-		print ('Possible moves:', getAllPossibleMoves(board, color))
+
+		possibleMoves = getAllPossibleMoves(board, color)
+		print ('Possible moves:', possibleMoves)
 		moveStr = input("Please enter your move(" + color + "): ")
-		exec('move=[' + moveStr + ']')
-						
-		if gamePlay.isLegalMove(board, move, color):			
+
+		my_move_list = moveStr.replace(' ', '').split(',')
+		my_move_list = list(map(int, my_move_list))
+
+		if gamePlay.isLegalMove(board, my_move_list, color):
 			moved = True			
-			return move
+			return my_move_list
 		else:
-			print ("Illegal move", str(move))
+			print ("Illegal move", str(my_move_list))
 		
