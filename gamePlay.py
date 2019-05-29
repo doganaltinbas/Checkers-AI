@@ -320,29 +320,18 @@ def playGame(p1, p2, verbose, t = 150):
 
 if __name__ == "__main__":
 
-	try:
-		optlist,args = getopt.getopt(sys.argv[1:],'vt:')
-	except getopt.error:
-		print "Usage: python %s {-v} {-t time} player1 player2" % (sys.argv[0])
-		exit()
+	beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
 
-	verbose = False
-	clockTime = 150.0
-	for (op,opVal) in optlist:
-		if (op == "-v"):
-			verbose = True
-		if (op == "-t"):
-			clockTime = float(opVal)
-	exec("from " + args[0] + " import nextMove")
+	exec("from Player" + beginning + " import nextMove")
 	p1 = nextMove
-	exec("from " + args[1] + " import nextMove")
+	exec("from Player" + str(int(beginning) +((int(beginning)%2))) + " import nextMove")
 	p2 = nextMove
 
 	result = playGame(p1, p2, verbose, clockTime)	
 
 	printBoard(result[0])
 	
-	if result[3] == "Drawn":
+	'''if result[3] == "Drawn":
 		if result[1] > result[2]:
 			print "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" %(args[0], args[1], result[1], result[2]),
 		elif result[1] < result[2]:
@@ -358,7 +347,7 @@ if __name__ == "__main__":
 		if result[1] > result[2]:
 			print "%s Wins %s Loses (%d to %d) TIMEOUT" %(args[0], args[1], result[1], result[2]),
 		elif result[1] < result[2]:
-			print "%s Wins %s Loses (%d to %d) TIMEOUT" %(args[1], args[0], result[2], result[1]),		
+			print "%s Wins %s Loses (%d to %d) TIMEOUT" %(args[1], args[0], result[2], result[1]),	'''
 		
 		
 		
