@@ -43,7 +43,7 @@ def getAllPossibleMovesAtPosition(board, x, y):
 		moves.append(m)
 		
 	if len(moves) == 0: # No jump moves available
-	
+
 		# Look for plain moves
 		serial = gridToSerial(x,y)
 		

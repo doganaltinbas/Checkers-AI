@@ -3,6 +3,8 @@ import time
 import getopt
 from copy import deepcopy
 
+p1_str = ""
+p2_str = ""
 
 def getOpponentColor(color):
     # Returns the opposing color 'o' or 'x'
@@ -222,6 +224,22 @@ def countPieces(board, color):
 
     return count
 
+def countKingPieces(board):
+
+    # Return number of <color> pieces (man or king) there are
+
+    count = 0
+
+    # Loop through all board positions
+    for piece in range(1, 25):
+        xy = serialToGrid(piece)
+        x = xy[0]
+        y = xy[1]
+
+        # Check whether this board position is our color
+        if board[x][y] == "X" or board[x][y] == "O":
+            count = count + 1
+    return count
 
 def serialToGrid(serial):
     # Given a piece's serial 1-24 it will return the board grid position (0,0)~(7,5)
@@ -292,26 +310,30 @@ def playGame(p1, p2, verbose):
     currentColor = 'x'
     nextColor = 'o'
 
-    while isAnyMovePossible(board, currentColor):
+    while isAnyMovePossible(board, currentColor) or (countPieces(board, 'x') >= 1 and countPieces(board, 'o') >= 1):
         tempBoard = deepcopy(board)
         nextMove = p1(tempBoard, currentColor)
 
         if isLegalMove(board, nextMove, currentColor):
             doMove(board, nextMove)
 
-        else:
-            if currentColor == "o":
-                return (board, -1, 1, "Bad Move: %s" % str(nextMove))
-            else:
-                return (board, 1, -1, "Bad Move: %s" % str(nextMove))
+        #else:
+            #if currentColor == "x":
+                #return (board, -1, 1, "Bad Move: %s" % str(nextMove))
+            #else:
+                #return (board, 1, -1, "Bad Move: %s" % str(nextMove))
 
         (p1, p2) = (p2, p1)
         (currentColor, nextColor) = (nextColor, currentColor)
 
         if verbose:
             printBoard(board)
-            print("Pieces remaining:", currentColor, "=", countPieces(board, currentColor))
-            print(nextColor, "=", countPieces(board, nextColor))
+            print("Pieces remaining:", currentColor, "=", countPieces(board, currentColor), " ", nextColor, "=", countPieces(board, nextColor))
+            print()
+
+        if countPieces(board, 'x') == 1 and countPieces(board, 'o') == 1:
+            if countKingPieces(board) == 2:
+                return (board, countPieces(board, 'x'), countPieces(board, 'o'), "Drawn")
 
     return (board, countPieces(board, 'x'), countPieces(board, 'o'), "Won")
 
@@ -321,26 +343,24 @@ if __name__ == "__main__":
 
     exec("from Player" + str(beginning) + " import nextMove")
     p1 = nextMove
+    p1_str = "Player1"
     #exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
     p2 = nextMove
+    p2_str = "Player2"
     result = playGame(p1, p2, True)
 
     printBoard(result[0])
 
     if result[3] == "Drawn":
         if result[1] > result[2]:
-            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (args[0], args[1], result[1], result[2]))
+            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
         elif result[1] < result[2]:
-            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (args[1], args[0], result[2], result[1]))
+            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
         else:
-            print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (args[0], args[1], result[1], result[2]))
+            print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
     elif result[3] == "Won":
         if result[1] > result[2]:
-            print("%s Wins %s Loses (%d to %d)" % (args[0], args[1], result[1], result[2]))
+            print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
         elif result[1] < result[2]:
-            print("%s Wins %s Loses (%d to %d)" % (args[1], args[0], result[2], result[1]))
-    else:
-        if result[1] > result[2]:
-            print("%s Wins %s Loses (%d to %d) TIMEOUT" % (args[0], args[1], result[1], result[2]))
-        elif result[1] < result[2]:
-            print("%s Wins %s Loses (%d to %d) TIMEOUT" % (args[1], args[0], result[2], result[1]))
+            print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+
