@@ -260,14 +260,14 @@ def newBoard():
         xy = serialToGrid(i)
         x = xy[0]
         y = xy[1]
-        print("x:" + str(x) + "\t" + "y:" + str(y))
+        #print("x:" + str(x) + "\t" + "y:" + str(y))
         board[x][y] = 'x'
 
     for i in range(16, 25):
         xy = serialToGrid(i)
         x = xy[0]
         y = xy[1]
-        print("x:" + str(x) + "\t" + "y:" + str(y))
+        #print("x:" + str(x) + "\t" + "y:" + str(y))
         board[x][y] = 'o'
 
     return board
@@ -341,12 +341,12 @@ def playGame(p1, p2, verbose):
 if __name__ == "__main__":
     beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
 
-    exec("from Player" + str(beginning) + " import nextMove")
+    exec("from Player1 import nextMove")
     p1 = nextMove
-    p1_str = "Player1"
+    p1_str = "Player" + str(beginning)
     #exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
     p2 = nextMove
-    p2_str = "Player2"
+    p2_str = "Player" + str(int(beginning)%2 + 1)
     result = playGame(p1, p2, True)
 
     printBoard(result[0])
