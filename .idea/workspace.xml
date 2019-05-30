@@ -30,11 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Player1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="35" lean-forward="true" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-58">
+              <caret line="3" column="24" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -61,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/getAllPossibleMoves.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+            <state relative-caret-position="218">
+              <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -73,11 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gamePlay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="122" column="48" lean-forward="true" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="36">
+              <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -103,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Player2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-293">
-              <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+            <state relative-caret-position="974">
+              <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
               <folding>
                 <element signature="e#54#69#0" expanded="true" />
               </folding>
@@ -125,6 +119,7 @@
       <find>canMoveToPosition</find>
       <find>king</find>
       <find>serialto</find>
+      <find>getAllPossibleMoves</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -136,8 +131,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Player2.py" />
         <option value="$PROJECT_DIR$/Player1.py" />
+        <option value="$PROJECT_DIR$/Player2.py" />
         <option value="$PROJECT_DIR$/getAllPossibleMoves.py" />
         <option value="$PROJECT_DIR$/gamePlay.py" />
       </list>
@@ -223,12 +218,12 @@
       <updated>1559116869629</updated>
       <workItem from="1559141249722" duration="942000" />
       <workItem from="1559143025800" duration="13263000" />
-      <workItem from="1559201126262" duration="16432000" />
+      <workItem from="1559201126262" duration="20531000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34774000" />
+    <option name="totallyTimeSpent" value="38873000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -248,7 +243,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.79229873" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.27421236" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2252042" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32910052" />
@@ -277,29 +272,41 @@
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/getAllPossibleMoves.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/getAllPossibleMoves.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/getAllPossibleMoves.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gamePlay.py</url>
-          <line>322</line>
-          <option name="timeStamp" value="12" />
+          <line>100</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/gamePlay.py</url>
+          <line>110</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Checkers_AI$gamePlay.coverage" NAME="gamePlay Coverage Results" MODIFIED="1559231823447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Checkers_AI$gamePlay.coverage" NAME="gamePlay Coverage Results" MODIFIED="1559235724170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/403569020/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73800">
           <caret line="4920" column="8" selection-start-line="4920" selection-start-column="8" selection-end-line="4920" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -317,10 +324,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Player2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-293">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="974">
+          <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
           <folding>
             <element signature="e#54#69#0" expanded="true" />
           </folding>
@@ -329,18 +344,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Player1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="35" lean-forward="true" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-58">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/getAllPossibleMoves.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+        <state relative-caret-position="218">
+          <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -349,11 +361,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gamePlay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="122" column="48" lean-forward="true" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="36">
+          <caret line="109" column="24" selection-start-line="109" selection-start-column="24" selection-end-line="109" selection-end-column="24" />
         </state>
       </provider>
     </entry>

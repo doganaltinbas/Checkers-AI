@@ -17,7 +17,6 @@ def getOpponentColor(color):
 def isCapturePossibleFromPosition(board, x, y):
     # Returns whether (x,y) piece can make a capture at this time
 
-    opponent = getOpponentColor(board[x][y])
     # Check whether a jump possible to all four directions
     if canMoveToPosition(board, x, y, x - 2, y - 2):
         return True
