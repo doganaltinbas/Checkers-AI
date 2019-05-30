@@ -16,11 +16,15 @@ def evaluation(board, color, depth, turn, opponentColor, alpha, beta):
             for move in moves:
                 nextBoard = deepcopy(board)
                 gamePlay.doMove(nextBoard,move)
-                if beta > opti:
+                if opti is None or beta > opti:
                     value = evaluation(nextBoard, color, depth, 'min', opponentColor, alpha, beta)
-                    if value > opti: #None is less than everything and anything so we don't need opti == None check
+                    if opti is None:
                         opti = value
-                    if opti > alpha:
+                    elif value > opti: #None is less than everything and anything so we don't need opti == None check
+                        opti = value
+                    if opti is None:
+                        alpha = opti
+                    elif opti > alpha:
                         alpha = opti
 
         elif turn == 'min':
@@ -30,16 +34,16 @@ def evaluation(board, color, depth, turn, opponentColor, alpha, beta):
                 gamePlay.doMove(nextBoard,move)
                 if alpha == None or opti == None or alpha < opti: #None conditions are to check for the first times
                     value = evaluation(nextBoard, color, depth, 'max', opponentColor, alpha, beta)
-                    if opti == None or value < opti: #opti = None for the first time
+                    if opti is None or value < opti: #opti = None for the first time
                         opti = value
-                    if opti < beta:
+                    if opti is None or opti < beta:
                         beta = opti
 
         return opti # opti will contain the best value for player in MAX turn and worst value for player in MIN turn
 
     else: #Comes here for the last level i.e leaf nodes
         value = 0
-        for piece in range(1, 33):
+        for piece in range(1, 25):
             xy = gamePlay.serialToGrid(piece)
             x = xy[0]
             y = xy[1]

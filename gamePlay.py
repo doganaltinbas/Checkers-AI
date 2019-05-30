@@ -167,7 +167,7 @@ def isLegalMove(board, move, color):
 
     # Check whether the jump is complete
     # whether any more jump can be made from the last position
-    if isCaptureMove == True:
+    if isCaptureMove:
         if isCapturePossibleFromPosition(tempBoard, x1, y1):
             return False
 
@@ -289,8 +289,8 @@ def playGame(p1, p2, verbose):
     board = newBoard()
     printBoard(board)
     print
-    currentColor = 'o'
-    nextColor = 'x'
+    currentColor = 'x'
+    nextColor = 'o'
 
     while isAnyMovePossible(board, currentColor):
         tempBoard = deepcopy(board)
@@ -300,7 +300,7 @@ def playGame(p1, p2, verbose):
             doMove(board, nextMove)
 
         else:
-            if currentColor == "x":
+            if currentColor == "o":
                 return (board, -1, 1, "Bad Move: %s" % str(nextMove))
             else:
                 return (board, 1, -1, "Bad Move: %s" % str(nextMove))
@@ -321,26 +321,26 @@ if __name__ == "__main__":
 
     exec("from Player" + str(beginning) + " import nextMove")
     p1 = nextMove
-    exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
+    #exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
     p2 = nextMove
     result = playGame(p1, p2, True)
 
     printBoard(result[0])
 
-    '''if result[3] == "Drawn":
-		if result[1] > result[2]:
-			print "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" %(args[0], args[1], result[1], result[2]),
-		elif result[1] < result[2]:
-			print "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" %(args[1], args[0], result[2], result[1]),
-		else:
-			print "Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (args[0], args[1], result[1], result[2])
-	elif result[3] == "Won":
-		if result[1] > result[2]:
-			print "%s Wins %s Loses (%d to %d)" %(args[0], args[1], result[1], result[2]),
-		elif result[1] < result[2]:
-			print "%s Wins %s Loses (%d to %d)" %(args[1], args[0], result[2], result[1]),
-	else:
-		if result[1] > result[2]:
-			print "%s Wins %s Loses (%d to %d) TIMEOUT" %(args[0], args[1], result[1], result[2]),
-		elif result[1] < result[2]:
-			print "%s Wins %s Loses (%d to %d) TIMEOUT" %(args[1], args[0], result[2], result[1]),	'''
+    if result[3] == "Drawn":
+        if result[1] > result[2]:
+            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (args[0], args[1], result[1], result[2]))
+        elif result[1] < result[2]:
+            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (args[1], args[0], result[2], result[1]))
+        else:
+            print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (args[0], args[1], result[1], result[2]))
+    elif result[3] == "Won":
+        if result[1] > result[2]:
+            print("%s Wins %s Loses (%d to %d)" % (args[0], args[1], result[1], result[2]))
+        elif result[1] < result[2]:
+            print("%s Wins %s Loses (%d to %d)" % (args[1], args[0], result[2], result[1]))
+    else:
+        if result[1] > result[2]:
+            print("%s Wins %s Loses (%d to %d) TIMEOUT" % (args[0], args[1], result[1], result[2]))
+        elif result[1] < result[2]:
+            print("%s Wins %s Loses (%d to %d) TIMEOUT" % (args[1], args[0], result[2], result[1]))
