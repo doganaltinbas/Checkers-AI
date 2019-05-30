@@ -1,5 +1,3 @@
-# Name      : Vikas Palakurthi
-# User ID   : vpalakur
 import gamePlay
 from copy import deepcopy
 from getAllPossibleMoves import getAllPossibleMoves

@@ -11,7 +11,7 @@ def getAllJumpMovesAtPosition(board, x, y):
 	
 	moves = []
 	serial = gridToSerial(x, y)
-	
+
 	for i in [-2,2]:
 		for j in [-2,2]:
 			# Check all four directions
@@ -26,7 +26,6 @@ def getAllJumpMovesAtPosition(board, x, y):
 						l = [serial]
 						l.extend(m)
 						moves.append(l)
-	
 	return moves
 	
 def getAllPossibleMovesAtPosition(board, x, y):

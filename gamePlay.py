@@ -1,6 +1,3 @@
-import sys
-import time
-import getopt
 from copy import deepcopy
 
 p1_str = ""
@@ -124,6 +121,7 @@ def canMoveToPosition(board, x1, y1, x2, y2):
         if board[int((x1 + x2) / 2)][int((y1 + y2) / 2)].lower() != getOpponentColor(color):
             # Middle piece must be opponent
             return False
+
     return True
 
 
