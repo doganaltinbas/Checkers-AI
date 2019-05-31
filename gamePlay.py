@@ -14,7 +14,30 @@ def getOpponentColor(color):
         return ' '
 
 
-def isCapturePossibleFromPosition(board, x, y):
+def isCapturePossibleFromPosition(board, x, y, color):
+
+    if board[x][y] == color.upper():
+        print("There is a king at", x, y)
+        i = 5
+        while i > 2:
+            if canKingMoveToPosition(board, x, y, x - i, y - i, "nw"):
+                print("from",x,y,"to",x-i,y-i)
+                return True
+            if canKingMoveToPosition(board, x, y, x - i, y + i, "ne"):
+                print("from",x,y,"to",x-i,y+i)
+                return True
+            if canKingMoveToPosition(board, x, y, x + i, y - i, "sw"):
+                print("from",x,y,"to",x+i,y-i)
+                return True
+            if canKingMoveToPosition(board, x, y, x + i, y + i, "se"):
+                print("from",x,y,"to",x+i,y+i)
+                return True
+            i = i - 1
+        return False
+
+
+
+
     # Returns whether (x,y) piece can make a capture at this time
 
     # Check whether a jump possible to all four directions
@@ -41,7 +64,7 @@ def isCapturePossible(board, color):
 
         # Check whether this board position is our color
         if board[x][y].upper() == color.upper():
-            if isCapturePossibleFromPosition(board, x, y):
+            if isCapturePossibleFromPosition(board, x, y, color):
                 return True
 
     return False
@@ -123,6 +146,96 @@ def canMoveToPosition(board, x1, y1, x2, y2):
 
     return True
 
+def canKingMoveToPosition(board, x1, y1, x2, y2, direction):
+    # Check whether (x1,y1) can move to (x2,y2) in one move (plain or capture)
+
+    if x1 < 0 or y1 < 0 or x2 < 0 or y2 < 0 or x1 > 7 or y1 > 5 or x2 > 7 or y2 > 5:
+        return False
+
+    color = board[x1][y1]
+    if color == ' ':
+        return False
+    if board[x2][y2] != ' ':
+        return False
+    x1_x2 = abs(x1 - x2)
+    y1_y2 = abs(y1 - y2)
+    #if x1_x2 != 1 and x1_x2 != 2:
+       # return False
+    if x1_x2 != y1_y2:
+        return False
+    #if color == 'o' and x2 > x1:  # o men cannot move down
+        #return False
+    #if color == 'x' and x2 < x1:  # x men cannot move up
+        #return False
+    if x1_x2 >= 2:  # It could be a capture move
+
+        abs_dist = x1_x2
+
+        while abs_dist >= 2:
+
+            abs_dist = abs_dist - 1
+            # - -
+            if direction == "nw":
+                if board[int(x1 - abs_dist)][int(y1 - abs_dist)].lower() != getOpponentColor(color):
+                    return False
+
+                count = 0
+                r = x1_x2 - 1
+                while r > 0:
+                    if board[int(x1 - r)][int(y1 - r)].lower() != ' ':
+                        count = count + 1
+                    r = r - 1
+                if count > 1:
+                    return False
+                return True
+            # - +
+            elif direction == "ne":
+                if board[int(x1 - abs_dist)][int(y1 + abs_dist)].lower() != getOpponentColor(color):
+                    return False
+
+                count = 0
+                r = x1_x2 - 1
+                while r > 0:
+                    if board[int(x1 - r)][int(y1 + r)].lower() != ' ':
+                        count = count + 1
+                    r = r - 1
+                if count > 1:
+                    return False
+                return True
+
+            # + -
+            elif direction == "sw":
+                if board[int(x1 + abs_dist)][int(y1 - abs_dist)].lower() != getOpponentColor(color):
+                    return False
+
+                count = 0
+                r = x1_x2 - 1
+                while r > 0:
+                    if board[int(x1 + r)][int(y1 - r)].lower() != ' ':
+                        count = count + 1
+                    r = r - 1
+                if count > 1:
+                    return False
+                return True
+
+            # + +
+            elif direction == "se":
+                if board[int(x1 + abs_dist)][int(y1 + abs_dist)].lower() != getOpponentColor(color):
+                    return False
+
+                count = 0
+                r = x1_x2 - 1
+                while r > 0:
+                    if board[int(x1 + r)][int(y1 + r)].lower() != ' ':
+                        count = count + 1
+                    r = r - 1
+                if count > 1:
+                    return False
+                return True
+
+
+    return True
+
 
 def isLegalMove(board, move, color):
     # Check whether move (a list) is a legal move in the board for <color> piece
@@ -167,7 +280,7 @@ def isLegalMove(board, move, color):
     # Check whether the jump is complete
     # whether any more jump can be made from the last position
     if isCaptureMove:
-        if isCapturePossibleFromPosition(tempBoard, x1, y1):
+        if isCapturePossibleFromPosition(tempBoard, x1, y1, color):
             return False
 
     return True

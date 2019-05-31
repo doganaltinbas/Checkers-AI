@@ -38,7 +38,7 @@ def getAllPossibleMovesAtPosition(board, x, y):
 
 	# Look for jumps
 	l = getAllJumpMovesAtPosition(board, x, y)
-	print(board[x][y], " at", gridToSerial(x, y), "Possible Jump Moves:", l)
+	print(board[x][y], "at", gridToSerial(x, y), "Possible Jump Moves:", l)
 	for m in l:
 		moves.append(m)
 
@@ -56,7 +56,7 @@ def getAllPossibleMovesAtPosition(board, x, y):
 		if gamePlay.canMoveToPosition(board, x, y, x+1, y+1):
 			moves.append([serial,gridToSerial(x+1,y+1)])
 
-		print(board[x][y], " at", gridToSerial(x, y), "Possible Regular Moves:", moves)
+		print(board[x][y], "at", gridToSerial(x, y), "Possible Regular Moves:", moves)
 
 	else:
 		le = max(len(x) for x in moves)  # find out the max length
@@ -86,6 +86,7 @@ def getAllPossibleMoves(board, color):
 
 			l, isCapture = getAllPossibleMovesAtPosition(board, x, y)
 
+			#if capture is possible, only capture moves should be appended.
 			if isCapturePossible == isCapture:
 				for m in l:
 					moves.append(m)
