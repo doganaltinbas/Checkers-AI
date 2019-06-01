@@ -19,7 +19,7 @@ def isCapturePossibleFromPosition(board, x, y, color):
     if board[x][y] == color.upper():
         print("There is a king at", x, y)
         i = 5
-        while i > 2:
+        while i >= 2:
             if canKingMoveToPosition(board, x, y, x - i, y - i, "nw"):
                 print("from",x,y,"to",x-i,y-i)
                 return True
@@ -83,8 +83,16 @@ def doMovePosition(board, x1, y1, x2, y2):
     board[x2][y2] = board[x1][y1]
     board[x1][y1] = ' '
 
-    if abs(x1 - x2) == 2:  # It's a capture move
-        board[int((x1 + x2) / 2)][int((y1 + y2) / 2)] = ' '
+    if abs(x1 - x2) >= 2:  # It's a capture move
+        direction = ""
+        if x2 < x1 and y2 < y1:
+            board[x2 + 1][y2 + 1] = ' '
+        elif x2 < x1 and y2 > y1:
+            board[x2 + 1][y2 - 1] = ' '
+        elif x2 > x1 and y2 < y1:
+            board[x2 - 1][y2 + 1] = ' '
+        elif x2 > x1 and y2 > y1:
+            board[x2 - 1][y2 - 1] = ' '
         isCapture = True
 
     if x2 == 0 or x2 == 7:
@@ -266,8 +274,23 @@ def isLegalMove(board, move, color):
         x2 = xy[0]
         y2 = xy[1]
 
-        if not canMoveToPosition(tempBoard, x1, y1, x2, y2):
-            return False
+        #King
+        if tempBoard[x1][y1] == color.upper():
+            direction = ""
+            if x2 < x1 and y2 < y1:
+                direction = "nw"
+            elif x2 < x1 and y2 > y1:
+                direction = "ne"
+            elif x2 > x1 and y2 < y1:
+                direction = "sw"
+            elif x2 > x1 and y2 > y1:
+                direction = "se"
+
+            if not canKingMoveToPosition(tempBoard, x1, y1, x2, y2, direction):
+                return False
+        else:
+            if not canMoveToPosition(tempBoard, x1, y1, x2, y2):
+                return False
 
         # Perform the move
         if isCaptureMove != doMovePosition(tempBoard, x1, y1, x2, y2):
@@ -413,7 +436,6 @@ def playGame(p1, p2, verbose):
     # pieces left for red,
     # pieces left for white,
     # and status message "Drawn"/"Won"/"Timeout"/"Bad Move"
-
     board = newBoard()
     printBoard(board)
     print
