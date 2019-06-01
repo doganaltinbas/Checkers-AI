@@ -2,14 +2,15 @@ import random
 import gamePlay
 import time
 from getAllPossibleMoves import getAllPossibleMoves
-import os
+from termcolor import colored
 
 def nextMove(board, color):
 
 	moved = False
 	while not moved:
+		print("---------------------------------- ", colored(color, 'yellow')+"\'s", "turn", "----------------------------------","\n")
 		possibleMoves = getAllPossibleMoves(board, color)
-		print ('Possible moves:', possibleMoves)
+		print(colored('Possible moves:', 'yellow', attrs=['bold', 'blink']), possibleMoves)
 		#moveStr = input("Please enter your move(" + color + "): ")
 
 		if len(possibleMoves) == 0:

@@ -1,5 +1,6 @@
 import gamePlay
 from copy import deepcopy
+from termcolor import colored
 
 def gridToSerial(x, y):
 	# Returns the serial 1~24 of cell given the grid position(0,0)~(7,5)
@@ -18,8 +19,8 @@ def getAllJumpMovesAtPosition(board, x, y, color):
 			if gamePlay.canMoveToPosition(board, x, y, x + i, y + j):
 				tempBoard = deepcopy(board)
 				gamePlay.doMovePosition(tempBoard, x, y, x + i, y + j)
-				if tempBoard[x + i][y + j] == color.upper():
-					print("GELDDDDDDDDDDDDDIIIIIIIIII")
+				#if tempBoard[x + i][y + j] == color.upper():
+					#print("it is upped")
 				childJumpMoves = getAllJumpMovesAtPosition(tempBoard, x + i, y + j, color) if tempBoard[x + i][y + j] != color.upper() else getAllKingJumpMovesAtPosition(
 					tempBoard, x + i, y + j)
 				if len(childJumpMoves) == 0:
@@ -72,12 +73,12 @@ def getAllPossibleMovesAtPosition(board, x, y, color):
 	# Look for jumps
 	if board[x][y] == color.upper():
 		l = getAllKingJumpMovesAtPosition(board, x, y)
-		print(board[x][y], "at", gridToSerial(x, y), "King Possible Jump Moves:", l)
+		print(colored(board[x][y], 'blue'), "at", gridToSerial(x, y), colored("King", 'blue'), colored("Possible Jump Moves:", 'red'), l)
 		for m in l:
 			moves.append(m)
 	else:
 		l = getAllJumpMovesAtPosition(board, x, y, color)
-		print(board[x][y], "at", gridToSerial(x, y), "Possible Jump Moves:", l)
+		print(board[x][y], "at", gridToSerial(x, y), colored("Possible Jump Moves:", 'red'), l)
 		for m in l:
 			moves.append(m)
 
@@ -129,7 +130,7 @@ def getAllPossibleMoves(board, color):
 						jumpMoves.append(m)
 					le = max(len(x) for x in jumpMoves)  # find out the max length
 					jumpMoves = [x for x in jumpMoves if len(x) == le]  # now filter list based on that max length
-					print(board[x][y], "at", gridToSerial(x, y), "Selected max Jump(s):", jumpMoves)
+					print(board[x][y], "at", gridToSerial(x, y), colored("Selected max Jump(s):", 'yellow', attrs=['bold']), jumpMoves)
 					continue
 
 				for m in l:

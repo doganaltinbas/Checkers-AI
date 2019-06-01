@@ -1,4 +1,6 @@
 from copy import deepcopy
+from termcolor import colored
+
 
 p1_str = ""
 p2_str = ""
@@ -17,7 +19,6 @@ def getOpponentColor(color):
 def isCapturePossibleFromPosition(board, x, y, color):
 
     if board[x][y] == color.upper():
-        print("There is a king at", x, y)
         i = 5
         while i >= 2:
             if canKingMoveToPosition(board, x, y, x - i, y - i, "nw"):
@@ -421,12 +422,16 @@ def printBoard(board):
 
     columns = ["A", "B", "C", "D", "E", "F"]
     rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
-    print('    ', '   '.join(columns), ' ')
+    print('    ', '   '.join(colored(column, 'blue') for column in columns), ' ')
     print(' ' * 2, '-' * 25, '\t', '-' * 30)
     for i in range(0, 8):
-        print(rows[i], ' ' '|', ' | '.join(board[i]), '|', '\t|', ' | '.join(numberedBoard[i]), '|')
+        print(colored(rows[i], 'blue'), ' ' '|', ' | '.join(printColor(symbol) for symbol in board[i]), '|', '\t|', ' | '.join(numberedBoard[i]), '|')
         print(' ' * 2, '-' * 25, '\t', '-' * 30)
 
+def printColor(item):
+    if item.isupper():
+        return colored(item, 'blue')
+    return item
 
 def playGame(p1, p2, verbose):
     # Takes as input two functions p1 and p2 (each of which
@@ -460,8 +465,9 @@ def playGame(p1, p2, verbose):
 
         if verbose:
             printBoard(board)
-            print("Pieces remaining:", currentColor, "=", countPieces(board, currentColor), " ", nextColor, "=", countPieces(board, nextColor))
-            print()
+            print("Pieces remaining:", colored(currentColor, 'yellow'), "=", countPieces(board, currentColor), " ", colored(nextColor, 'yellow'), "=", countPieces(board, nextColor))
+            print("---------------------------------- End of", colored(nextColor, 'yellow') + "\'s", "turn", "----------------------------------","\n")
+            print("\n", "\n")
 
         if countPieces(board, 'x') == 1 and countPieces(board, 'o') == 1:
             if countKingPieces(board) == 2:
