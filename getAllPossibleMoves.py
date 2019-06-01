@@ -5,22 +5,26 @@ def gridToSerial(x, y):
 	# Returns the serial 1~24 of cell given the grid position(0,0)~(7,5)
 	
 	return 3*x+y//2+1
-	
-def getAllJumpMovesAtPosition(board, x, y):
+
+
+def getAllJumpMovesAtPosition(board, x, y, color):
 	# Get all jump moves of position board(x,y)
-	
+
 	moves = []
 	serial = gridToSerial(x, y)
-	for i in [-2,2]:
-		for j in [-2,2]:
+	for i in [-2, 2]:
+		for j in [-2, 2]:
 			# Check all four directions
-			if gamePlay.canMoveToPosition(board, x, y, x+i, y+j):
-				tempBoard = deepcopy(board)	
-				gamePlay.doMovePosition(tempBoard, x, y, x+i, y+j)
-				childJumpMoves = getAllJumpMovesAtPosition(tempBoard, x+i, y+j)				
-				if len(childJumpMoves) == 0:					
-					moves.append([serial, gridToSerial(x+i, y+j)])
-				else:					
+			if gamePlay.canMoveToPosition(board, x, y, x + i, y + j):
+				tempBoard = deepcopy(board)
+				gamePlay.doMovePosition(tempBoard, x, y, x + i, y + j)
+				if tempBoard[x + i][y + j] == color.upper():
+					print("GELDDDDDDDDDDDDDIIIIIIIIII")
+				childJumpMoves = getAllJumpMovesAtPosition(tempBoard, x + i, y + j, color) if tempBoard[x + i][y + j] != color.upper() else getAllKingJumpMovesAtPosition(
+					tempBoard, x + i, y + j)
+				if len(childJumpMoves) == 0:
+					moves.append([serial, gridToSerial(x + i, y + j)])
+				else:
 					for m in childJumpMoves:
 						l = [serial]
 						l.extend(m)
@@ -72,7 +76,7 @@ def getAllPossibleMovesAtPosition(board, x, y, color):
 		for m in l:
 			moves.append(m)
 	else:
-		l = getAllJumpMovesAtPosition(board, x, y)
+		l = getAllJumpMovesAtPosition(board, x, y, color)
 		print(board[x][y], "at", gridToSerial(x, y), "Possible Jump Moves:", l)
 		for m in l:
 			moves.append(m)

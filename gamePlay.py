@@ -471,28 +471,29 @@ def playGame(p1, p2, verbose):
 
 
 if __name__ == "__main__":
-    beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
+    while True:
+        beginning = "Who is going to start?	\"1\" for Player1 \"2\" for Player2"
+        beginning = 1
+        exec("from Player1 import nextMove")
+        p1 = nextMove
+        p1_str = "Player" + str(beginning)
+        #exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
+        p2 = nextMove
+        p2_str = "Player" + str(int(beginning)%2 + 1)
+        result = playGame(p1, p2, True)
 
-    exec("from Player1 import nextMove")
-    p1 = nextMove
-    p1_str = "Player" + str(beginning)
-    #exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
-    p2 = nextMove
-    p2_str = "Player" + str(int(beginning)%2 + 1)
-    result = playGame(p1, p2, True)
+        printBoard(result[0])
 
-    printBoard(result[0])
-
-    if result[3] == "Drawn":
-        if result[1] > result[2]:
-            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-        elif result[1] < result[2]:
-            print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
-        else:
-            print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-    elif result[3] == "Won":
-        if result[1] > result[2]:
-            print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-        elif result[1] < result[2]:
-            print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+        if result[3] == "Drawn":
+            if result[1] > result[2]:
+                print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+            elif result[1] < result[2]:
+                print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+            else:
+                print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+        elif result[3] == "Won":
+            if result[1] > result[2]:
+                print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+            elif result[1] < result[2]:
+                print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
 
