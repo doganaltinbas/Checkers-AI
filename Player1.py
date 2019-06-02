@@ -8,7 +8,7 @@ def nextMove(board, color):
 
 	moved = False
 	while not moved:
-		print("---------------------------------- ", colored(color, 'yellow')+"\'s", "turn", "----------------------------------","\n")
+		print("---------------------------------- ", colored(color, 'yellow')+"\'s", "turn", "----------------------------------------","\n")
 		possibleMoves = getAllPossibleMoves(board, color)
 		print(colored('Possible moves:', 'yellow', attrs=['bold', 'blink']), possibleMoves)
 		#moveStr = input("Please enter your move(" + color + "): ")

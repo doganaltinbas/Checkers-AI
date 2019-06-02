@@ -375,9 +375,29 @@ def countKingPieces(board):
             count = count + 1
     return count
 
+
 def serialToGrid(serial):
     # Given a piece's serial 1-24 it will return the board grid position (0,0)~(7,5)
     return ((serial - 1) // 3, 2 * ((serial - 1) % 3) + 1  - ((((serial - 1) // 3) + 1) % 2))
+
+
+def evaluate_actions_and_states(board, moves):
+    """Returns list of available moves given current states and next states."""
+    actions = []
+    states = []
+    for i, val in enumerate(moves):
+        print("i:",i,"value:", val)
+    for i in moves:
+        actions.append(i)
+        tempBoard = deepcopy(board)
+        doMove(tempBoard, i)
+        #printBoard(tempBoard)
+        states.append(get_state(tempBoard))
+    return states, actions
+
+
+def get_state(board):
+    return (''.join(''.join(map(str, row)) for row in board)).replace(" ","-")
 
 
 def newBoard():
@@ -444,8 +464,12 @@ def playGame(p1, p2, verbose):
     board = newBoard()
     printBoard(board)
     print
-    currentColor = 'x'
-    nextColor = 'o'
+    if p1_str == "Player1":
+        currentColor = 'x'
+        nextColor = 'o'
+    else:
+        currentColor = 'o'
+        nextColor = 'x'
 
     while isAnyMovePossible(board, currentColor) or (countPieces(board, 'x') >= 1 and countPieces(board, 'o') >= 1):
         tempBoard = deepcopy(board)
@@ -478,12 +502,11 @@ def playGame(p1, p2, verbose):
 
 if __name__ == "__main__":
     while True:
-        beginning = "Who is going to start?	\"1\" for Player1 \"2\" for Player2"
-        beginning = 1
-        exec("from Player1 import nextMove")
+        beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
+        exec("from Player" + str(beginning) + " import nextMove")
         p1 = nextMove
         p1_str = "Player" + str(beginning)
-        #exec("from Player" + str(int(beginning) + (int(beginning) % 2)) + " import nextMove")
+        exec("from Player" + str(int(beginning)%2 + 1) + " import nextMove")
         p2 = nextMove
         p2_str = "Player" + str(int(beginning)%2 + 1)
         result = playGame(p1, p2, True)
