@@ -341,6 +341,37 @@ def isAnyMovePossible(board, color):
     return False
 
 
+def currentCountPieces(board):
+    # Return number of <color> pieces (man or king) there are
+
+    count_of_o = 0
+    count_of_x = 0
+
+    if countPieces(board, 'x') == 1 and countPieces(board, 'o') == 1:
+        if countKingPieces(board) == 2:
+            return "Draw"
+
+    # Loop through all board positions
+    for piece in range(1, 25):
+        xy = serialToGrid(piece)
+        x = xy[0]
+        y = xy[1]
+
+        # Check whether this board position is our color
+        if board[x][y].upper() == 'o'.upper():
+            count_of_o = count_of_o + 1
+        elif board[x][y].upper() == 'x'.upper():
+            count_of_x = count_of_x + 1
+
+    if count_of_o == 0:
+        return 'X'
+    elif count_of_x == 0:
+        return 'O'
+    else:
+        return None
+
+    return count_of_o, count_of_x
+
 def countPieces(board, color):
     # Return number of <color> pieces (man or king) there are
 
@@ -351,12 +382,12 @@ def countPieces(board, color):
         xy = serialToGrid(piece)
         x = xy[0]
         y = xy[1]
-
         # Check whether this board position is our color
         if board[x][y].upper() == color.upper():
             count = count + 1
 
     return count
+
 
 def countKingPieces(board):
 
@@ -402,8 +433,8 @@ def get_state(board):
 
 def newBoard():
     # Create a new board, 2D array of characters
-    # 'x' for red man, 'o' for white man
-    # 'X' for red king, 'O' for white king
+    # 'x' for man, 'o' for man
+    # 'X' for king, 'O' for king
     # ' ' for empty
 
     board = []
@@ -453,7 +484,7 @@ def printColor(item):
         return colored(item, 'blue')
     return item
 
-def playGame(p1, p2, verbose):
+def playGame(p1, p2, verbose, mode):
     # Takes as input two functions p1 and p2 (each of which
     # calculates a next move given a board and player color),
     # and returns a tuple containing
@@ -473,7 +504,7 @@ def playGame(p1, p2, verbose):
 
     while isAnyMovePossible(board, currentColor) or (countPieces(board, 'x') >= 1 and countPieces(board, 'o') >= 1):
         tempBoard = deepcopy(board)
-        nextMove = p1(tempBoard, currentColor)
+        nextMove = p1(tempBoard, currentColor, mode)
 
         if isLegalMove(board, nextMove, currentColor):
             doMove(board, nextMove)
@@ -503,26 +534,65 @@ def playGame(p1, p2, verbose):
 if __name__ == "__main__":
     while True:
         beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
+        mode = input("Is it \"train\" or \"game\"")
         exec("from Player" + str(beginning) + " import nextMove")
         p1 = nextMove
         p1_str = "Player" + str(beginning)
         exec("from Player" + str(int(beginning)%2 + 1) + " import nextMove")
         p2 = nextMove
         p2_str = "Player" + str(int(beginning)%2 + 1)
-        result = playGame(p1, p2, True)
 
-        printBoard(result[0])
+        if mode == "train":
 
-        if result[3] == "Drawn":
-            if result[1] > result[2]:
-                print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-            elif result[1] < result[2]:
-                print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
-            else:
-                print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-        elif result[3] == "Won":
-            if result[1] > result[2]:
-                print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-            elif result[1] < result[2]:
-                print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+            i = 0
 
+            while i < 10000:
+                print("-------------- TRAINING EPISODE", i, "--------------")
+                result = playGame(p1, p2, True, mode)
+
+                printBoard(result[0])
+
+                if result[3] == "Drawn":
+                    if result[1] > result[2]:
+                        print(
+                            "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                    elif result[1] < result[2]:
+                        print(
+                            "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+                    else:
+                        print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                elif result[3] == "Won":
+                    if result[1] > result[2]:
+                        print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                    elif result[1] < result[2]:
+                        print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+
+                from Player2 import reset_values
+                reset_values()
+
+                i = i + 1
+
+            from Player2 import get_history
+            get_history()
+
+            from Player2 import save_values
+            save_values()
+
+        else:
+
+            result = playGame(p1, p2, True, mode)
+
+            printBoard(result[0])
+
+            if result[3] == "Drawn":
+                if result[1] > result[2]:
+                    print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                elif result[1] < result[2]:
+                    print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+                else:
+                    print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+            elif result[3] == "Won":
+                if result[1] > result[2]:
+                    print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                elif result[1] < result[2]:
+                    print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))

@@ -4,16 +4,21 @@ from getAllPossibleMoves import getAllPossibleMoves
 import numpy as np
 import gamePlay
 from termcolor import colored
+import sys
 
 '''
 The code makes use of recursion to implement minimax with alpha beta pruning.
 '''
 
 qtable = dict()
-player = 'X'
 learning_rate = 5e-1
 discount = 9e-1
 epsilon = 5e-1
+episode_reward = 0
+total_reward = 0
+cumulative_reward = []
+memory = []
+history = []
 
 
 def qvalue(state):
@@ -42,7 +47,7 @@ def argmin(values):
             min_indices.append(i)
     return np.random.choice(min_indices)
 
-def step(verbose=True):
+def step(board, color, verbose=True):
     """Agent makes one step.
 
 	- Deciding optimal or random action following e-greedy strategy given current state
@@ -51,27 +56,30 @@ def step(verbose=True):
 	- Updating q table values using GD with derivative of MSE of Q-value
 	- Returns game status
 	"""
-    old_board = [val for val in game.board]
-    state, action = next_move()
-    winner = game.make_move(action)
-    reward = reward(winner)
-    update(reward, winner, state)
+    #old_board = [val for val in game.board]
+    state, action = next_move(board, color)
+    #gamePlay.doMove(board, action)
+    reward_value, winner = reward(board)
+    update(reward_value, winner, state, board, color)
     if verbose:
         print("=========")
-        print(old_board)
-        print(action)
-        print(winner)
-        print(state)
+        #print(old_board)
+        print(colored("Selected Move:", 'yellow'), action)
+        print(colored("Winner:", 'yellow'), winner)
+        print(colored("State:", 'yellow'), state)
         print('Q value: {}'.format(qvalue(state)))
-        game.print_board()
-        print(reward)
-    return (winner, reward)
+        #game.print_board()
+        print(colored("Reward value:", 'yellow'), reward_value)
+    return winner, reward_value, action
 
 
 def next_move(board, color):
     """Selects next move in MDP following e-greedy strategy."""
-    states, actions = game.get_open_moves()
-    # Exploit
+    moves = getAllPossibleMoves(board, color)
+    print(colored('Possible moves:', 'yellow', attrs=['bold']), moves)
+    states, actions = gamePlay.evaluate_actions_and_states(board, moves)
+    for i, val in enumerate(states):
+        print("state:", val, "\naction:", actions[i])
     i = optimal_next(states)
     if np.random.random_sample() < epsilon:
         # Explore
@@ -81,7 +89,6 @@ def next_move(board, color):
 
 def optimal_next(states):
     """Selects optimal next move.
-
 	Input
 	- states list of possible next states
 	Output
@@ -89,28 +96,29 @@ def optimal_next(states):
 	"""
     values = [qvalue(s) for s in states]
     # Exploit
-    if game.player == player:
+    #if game.player == player:
         # Optimal move is max
-        return argmax(values)
-    else:
+    return argmax(values)
+    #else:
         # Optimal move is min
-        return argmin(values)
+       #return argmin(values)
 
-def reward(winner):
+def reward(board):
         """Calculates reward for different end game conditions.
         - win is 1.0
         - loss is -1.0
         - draw and unfinished is 0.0
         """
-        opponent = 'O' if player == 'X' else 'X'
-        if (winner == player):
-            return 1.0
-        elif (winner == opponent):
-            return -1.0
-        else:
-            return 0
+        winner = gamePlay.currentCountPieces(board)
 
-def update(reward, winner, state):
+        if winner == 'O':
+            return 1.0, winner
+        elif winner == 'X':
+            return -1.0, winner
+        else:
+            return 0, winner
+
+def update(reward, winner, state, board, color):
     """Updates q-value.
 
 	Update uses recorded observations of performing a
@@ -119,43 +127,48 @@ def update(reward, winner, state):
     # If terminal condition is reached, future reward is 0
     future_val = 0
     if not winner:
-        future_states, _ = game.get_open_moves()
+        moves = getAllPossibleMoves(board, color, False)
+        future_states, _ = gamePlay.evaluate_actions_and_states(board, moves)
         i = optimal_next(future_states)
         future_val = qvalue(future_states[i])
     # Q-value update
     qtable[state] = ((1 - learning_rate) * qvalue(state)) + (learning_rate * (reward + discount * future_val))
 
 
-def train(episodes, history=[]):
+def train(board, color):
     """Trains by playing against
 	Each episode is a full game"""
-    x = range(episodes)
-    cumulative_reward = []
-    memory = []
+    moves = getAllPossibleMoves(board, color, False)
+    if len(moves) == 0:
+        print("AI does not have appropriate mevement")
+        return []
+    winner, reward, action = step(board, color)
+    global episode_reward
+    #print("episode_reward",episode_reward)
+    episode_reward += reward
+    global total_reward
+    #print("total_reward",total_reward)
+    total_reward += episode_reward
+    global cumulative_reward
+    #print("cumulative_reward", cumulative_reward)
+    cumulative_reward.append(total_reward)
+    global memory
+    #print(memory)
+    memory.append(sys.getsizeof(qtable) / 1024)
+    return action
 
-    total_reward = 0.0
-    for i in range(episodes):
-        episode_reward = 0.0
-        game_active = True
-        # Rest of game follows strategy
-        while (game_active):
-            winner, reward = step()
-            episode_reward += reward
-            if winner:
-                game_active = False
-                game.reset()
-        total_reward += episode_reward
-        cumulative_reward.append(total_reward)
-        global qtable
-        memory.append(sys.getsizeof(qtable) / 1024)
-        # Record total reward agent gains as training progresses
-        if (i % (episodes / 10) == 0) and (i >= (episodes / 10)):
-            print('.')
-    history.append(x)
+def reset_values():
+    global episode_reward
+    print("resetted",episode_reward)
+    episode_reward = 0
+
+
+def get_history():
+    global history
+    history.append(10000)
     history.append(cumulative_reward)
     history.append(memory)
     return history
-
 
 def stats():
     """Agent plays optimally against self with no exploration.
@@ -217,26 +230,15 @@ def demo(first=True):
             game_active = False
     game.reset()
 
-def nextMove(board, color):
+def nextMove(board, color, mode):
     print("---------------------------------- ", colored(color, 'yellow') + "\'s", "turn","----------------------------------------", "\n")
-    moves = getAllPossibleMoves(board, color)
-    print(colored('Possible moves:', 'yellow', attrs=['bold']), moves)
-    states, actions = gamePlay.evaluate_actions_and_states(board, moves)
-    for i, val in enumerate(states):
-        print("state:", val,"\naction:", actions[i])
-    opponentColor = gamePlay.getOpponentColor(color)
-    depth = 5
-    best = None
-    alpha = None
-    beta = float("inf")
-    for move in moves: # this is the max turn(1st level of minimax), so next should be min's turn
-        newBoard = deepcopy(board)
-        gamePlay.doMove(newBoard,move)
-        #Beta is always inf here as there is no parent MIN node. So no need to check if we can prune or not.
-        moveVal = evaluation(newBoard, color, depth, 'min', opponentColor, alpha, beta)
-        if best == None or moveVal > best:
-            bestMove = move
-            best = moveVal
-        if best > alpha:
-            alpha = best
-    return bestMove
+    if mode == "train":
+        return train(board, color)
+    else:
+        moves = getAllPossibleMoves(board, color)
+        print(colored('Possible moves:', 'yellow', attrs=['bold']), moves)
+        states, actions = gamePlay.evaluate_actions_and_states(board, moves)
+        for i, val in enumerate(states):
+            print("state:", val, "\naction:", actions[i])
+        i = optimal_next(states)
+        return actions[i]
