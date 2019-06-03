@@ -48,7 +48,7 @@ def argmin(values):
             min_indices.append(i)
     return np.random.choice(min_indices)
 
-def step(board, color, verbose=True):
+def step(board, color, verbose= True):
     """Agent makes one step.
 
 	- Deciding optimal or random action following e-greedy strategy given current state
@@ -57,7 +57,6 @@ def step(board, color, verbose=True):
 	- Updating q table values using GD with derivative of MSE of Q-value
 	- Returns game status
 	"""
-    #old_board = [val for val in game.board]
     old_board = deepcopy(board)
     state, action = next_move(board, color)
     temp_board = deepcopy(board)
@@ -66,12 +65,10 @@ def step(board, color, verbose=True):
     update(reward_value, winner, state, board, color)
     if verbose:
         print("=========")
-        #print(old_board)
         print(colored("Selected Move:", 'yellow'), action)
         print(colored("Winner:", 'yellow'), winner)
         print(colored("State:", 'yellow'), state)
         print(colored('Q value:', 'yellow'), '{}'.format(qvalue(state)))
-        #game.print_board()
         print(colored("Reward value:", 'yellow'), reward_value)
     return winner, reward_value, action
 
@@ -153,7 +150,7 @@ def train(board, color):
 	Each episode is a full game"""
     moves = getAllPossibleMoves(board, color, False)
     if len(moves) == 0:
-        print("AI does not have appropriate mevement")
+        print("No Possible move for AI. Switching players...")
         return []
     winner, reward, action = step(board, color)
     global episode_reward
@@ -178,7 +175,7 @@ def reset_values():
 
 def get_history():
     global history
-    history.append(10000)
+    history.append(100)
     history.append(cumulative_reward)
     history.append(memory)
     return history

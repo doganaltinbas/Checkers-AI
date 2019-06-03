@@ -3,6 +3,7 @@ from termcolor import colored
 import numpy as np
 from scipy import ndimage
 import math
+import matplotlib.pyplot as plt
 
 p1_str = ""
 p2_str = ""
@@ -33,6 +34,7 @@ def isCapturePossibleFromPosition(board, x, y, color):
                 print("from",x,y,"to",x+i,y-i)
                 return True
             if canKingMoveToPosition(board, x, y, x + i, y + i, "se"):
+
                 print("from",x,y,"to",x+i,y+i)
                 return True
             i = i - 1
@@ -607,19 +609,18 @@ if __name__ == "__main__":
 
             i = 0
 
-            while i < 10:
-                print("-------------- TRAINING EPISODE", i, "--------------")
+            while i < 100:
+                if i % 10 == 0:
+                    print("-------------- TRAINING EPISODE", i, "--------------")
                 result = playGame(p1, p2, True, mode)
 
                 printBoard(result[0])
 
                 if result[3] == "Drawn":
                     if result[1] > result[2]:
-                        print(
-                            "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                        print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
                     elif result[1] < result[2]:
-                        print(
-                            "Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+                        print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
                     else:
                         print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
                 elif result[3] == "Won":
@@ -633,11 +634,26 @@ if __name__ == "__main__":
 
                 i = i + 1
 
-            from Player2 import get_history
-            get_history()
-
             from Player2 import save_values
             save_values()
+
+            from Player2 import get_history
+
+            history = get_history()
+
+            rfig, raxs = plt.subplots(nrows=1, ncols=1)
+            rax_reward1 = raxs
+            rax_reward1.grid()
+
+            rax_reward1.plot(history[0][:100], history[1][:100])
+            rax_reward1.set(ylabel='Cumulative Reward', title='Tic Tac Toe Cumulative Reward Episodes')
+
+
+            rfig.savefig('tictactoe_reward.png')
+
+            plt.show()
+
+
 
         else:
 
