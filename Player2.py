@@ -112,9 +112,9 @@ def reward(board):
         winner = gamePlay.currentCountPieces(board)
 
         if winner == 'O':
-            return 1.0, winner
+            return 9.0, winner
         elif winner == 'X':
-            return -1.0, winner
+            return -9.0, winner
         else:
             return 0, winner
 

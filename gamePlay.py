@@ -1,6 +1,7 @@
 from copy import deepcopy
 from termcolor import colored
-
+import numpy as np
+from scipy import ndimage
 
 p1_str = ""
 p2_str = ""
@@ -455,8 +456,28 @@ def newBoard():
         #print("x:" + str(x) + "\t" + "y:" + str(y))
         board[x][y] = 'o'
 
-    return board
+    print(center_of_mass(board))
 
+def center_of_mass(board):
+
+    array_of_o = np.array(board)
+    array_of_x = np.array(board)
+
+    array_of_o[array_of_o == 'o'] = 1
+    array_of_o[array_of_o == 'x'] = 0
+    array_of_o[array_of_o == ' '] = 0
+
+    array_of_x[array_of_x == 'x'] = 1
+    array_of_x[array_of_x == 'o'] = 0
+    array_of_x[array_of_x == ' '] = 0
+
+    array_of_o = array_of_o.astype(int)
+    array_of_x = array_of_x.astype(int)
+
+    center_o = ndimage.measurements.center_of_mass(array_of_o)
+    center_x = ndimage.measurements.center_of_mass(array_of_x)
+
+    return int(center_x[0]), int(center_o[0])
 
 def printBoard(board):
     # Print a board
