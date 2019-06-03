@@ -5,6 +5,7 @@ import numpy as np
 import gamePlay
 from termcolor import colored
 import sys
+import json
 
 '''
 The code makes use of recursion to implement minimax with alpha beta pruning.
@@ -57,9 +58,11 @@ def step(board, color, verbose=True):
 	- Returns game status
 	"""
     #old_board = [val for val in game.board]
+    old_board = deepcopy(board)
     state, action = next_move(board, color)
-    #gamePlay.doMove(board, action)
-    reward_value, winner = reward(board)
+    temp_board = deepcopy(board)
+    gamePlay.doMove(temp_board, action)
+    reward_value, winner = reward(old_board, temp_board)
     update(reward_value, winner, state, board, color)
     if verbose:
         print("=========")
@@ -67,7 +70,7 @@ def step(board, color, verbose=True):
         print(colored("Selected Move:", 'yellow'), action)
         print(colored("Winner:", 'yellow'), winner)
         print(colored("State:", 'yellow'), state)
-        print('Q value: {}'.format(qvalue(state)))
+        print(colored('Q value:', 'yellow'), '{}'.format(qvalue(state)))
         #game.print_board()
         print(colored("Reward value:", 'yellow'), reward_value)
     return winner, reward_value, action
@@ -103,20 +106,31 @@ def optimal_next(states):
         # Optimal move is min
        #return argmin(values)
 
-def reward(board):
+def reward(old_board, board):
         """Calculates reward for different end game conditions.
         - win is 1.0
         - loss is -1.0
-        - draw and unfinished is 0.0
+        - draw and unfinished is calculate by:
+         Format of returned data:
+         (own_pieces, opp_pieces, own_kings, opp_kings, own_edges, own_vert_center_mass, opp_vert_center_mass)
         """
-        winner = gamePlay.currentCountPieces(board)
+        winner, count_o, count_x = gamePlay.currentCountPieces(board)
 
         if winner == 'O':
             return 9.0, winner
         elif winner == 'X':
             return -9.0, winner
         else:
-            return 0, winner
+            #calculate old_board and board piece counts
+
+            winner, board_o, board_x = gamePlay.currentCountPieces(board)
+            board_O, board_X = gamePlay.countKingPieces(board)
+
+            winner, old_board_o, old_board_x = gamePlay.currentCountPieces(old_board)
+            old_board_O, old_board_X = gamePlay.countKingPieces(old_board)
+
+            calc = board_o - old_board_o + 2*(board_O - old_board_O) - (board_x - old_board_x) - 2*(board_X - old_board_X)
+            return calc, winner
 
 def update(reward, winner, state, board, color):
     """Updates q-value.
@@ -133,7 +147,6 @@ def update(reward, winner, state, board, color):
         future_val = qvalue(future_states[i])
     # Q-value update
     qtable[state] = ((1 - learning_rate) * qvalue(state)) + (learning_rate * (reward + discount * future_val))
-
 
 def train(board, color):
     """Trains by playing against

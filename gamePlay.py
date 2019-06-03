@@ -2,6 +2,7 @@ from copy import deepcopy
 from termcolor import colored
 import numpy as np
 from scipy import ndimage
+import math
 
 p1_str = ""
 p2_str = ""
@@ -349,8 +350,9 @@ def currentCountPieces(board):
     count_of_x = 0
 
     if countPieces(board, 'x') == 1 and countPieces(board, 'o') == 1:
-        if countKingPieces(board) == 2:
-            return "Draw"
+        count_O, count_X = countKingPieces(board)
+        if count_O + count_X == 2:
+            return "Draw", count_O, count_X
 
     # Loop through all board positions
     for piece in range(1, 25):
@@ -365,13 +367,12 @@ def currentCountPieces(board):
             count_of_x = count_of_x + 1
 
     if count_of_o == 0:
-        return 'X'
+        return 'X', count_of_o, count_of_x
     elif count_of_x == 0:
-        return 'O'
+        return 'O', count_of_o, count_of_x
     else:
-        return None
+        return None, count_of_o, count_of_x
 
-    return count_of_o, count_of_x
 
 def countPieces(board, color):
     # Return number of <color> pieces (man or king) there are
@@ -394,8 +395,8 @@ def countKingPieces(board):
 
     # Return number of <color> pieces (man or king) there are
 
-    count = 0
-
+    count_X = 0
+    count_O = 0
     # Loop through all board positions
     for piece in range(1, 25):
         xy = serialToGrid(piece)
@@ -403,9 +404,31 @@ def countKingPieces(board):
         y = xy[1]
 
         # Check whether this board position is our color
-        if board[x][y] == "X" or board[x][y] == "O":
-            count = count + 1
-    return count
+        if board[x][y] == "X":
+            count_X = count_X + 1
+        elif board[x][y] == "O":
+            count_O = count_O + 1
+
+    return count_O, count_X
+
+def countEdgePieces(board):
+
+    count_o = 0
+    count_x = 0
+    # Loop through all board positions
+    for piece in range(1, 25):
+        xy = serialToGrid(piece)
+        x = xy[0]
+        y = xy[1]
+
+        # Check whether this board position is our color
+        if y == 0 or y == 5:
+            if board[x][y].upper() == 'x'.upper():
+                count_x = count_x + 1
+            elif board[x][y].upper() == 'o'.upper():
+                count_o = count_o + 1
+
+    return count_o, count_x
 
 
 def serialToGrid(serial):
@@ -417,19 +440,28 @@ def evaluate_actions_and_states(board, moves):
     """Returns list of available moves given current states and next states."""
     actions = []
     states = []
-    for i, val in enumerate(moves):
-        print("i:",i,"value:", val)
     for i in moves:
         actions.append(i)
         tempBoard = deepcopy(board)
         doMove(tempBoard, i)
-        #printBoard(tempBoard)
-        states.append(get_state(tempBoard))
+        states.append(get_state(board, tempBoard))
     return states, actions
 
 
-def get_state(board):
-    return (''.join(''.join(map(str, row)) for row in board)).replace(" ","-")
+def get_state(old_board, board):
+
+    winner, board_o, board_x = currentCountPieces(board)
+    board_O, board_X = countKingPieces(board)
+    center_o, center_x = center_of_mass(board)
+    edge_o, edge_x = countEdgePieces(board)
+
+    winner, old_board_o, old_board_x = currentCountPieces(old_board)
+    old_board_O, old_board_X = countKingPieces(old_board)
+    old_center_o, old_center_x = center_of_mass(old_board)
+    old_edge_o, old_edge_x = countEdgePieces(old_board)
+    state =  old_board_o, old_board_x, old_board_O, old_board_X, old_edge_o, old_center_o, old_center_x, board_o, board_x, board_O, board_X, edge_o, center_o, center_x
+    state = " ".join(map(str,state))
+    return ''.join(state)
 
 
 def newBoard():
@@ -456,7 +488,7 @@ def newBoard():
         #print("x:" + str(x) + "\t" + "y:" + str(y))
         board[x][y] = 'o'
 
-    print(center_of_mass(board))
+    return board
 
 def center_of_mass(board):
 
@@ -464,11 +496,15 @@ def center_of_mass(board):
     array_of_x = np.array(board)
 
     array_of_o[array_of_o == 'o'] = 1
+    array_of_o[array_of_o == 'O'] = 1
     array_of_o[array_of_o == 'x'] = 0
+    array_of_o[array_of_o == 'X'] = 0
     array_of_o[array_of_o == ' '] = 0
 
     array_of_x[array_of_x == 'x'] = 1
+    array_of_x[array_of_x == 'X'] = 1
     array_of_x[array_of_x == 'o'] = 0
+    array_of_x[array_of_x == 'O'] = 0
     array_of_x[array_of_x == ' '] = 0
 
     array_of_o = array_of_o.astype(int)
@@ -477,7 +513,10 @@ def center_of_mass(board):
     center_o = ndimage.measurements.center_of_mass(array_of_o)
     center_x = ndimage.measurements.center_of_mass(array_of_x)
 
-    return int(center_x[0]), int(center_o[0])
+    if math.isnan(center_x[0]):
+        center_x = (0, 1)
+
+    return np.int(center_o[0]), np.int(center_x[0])
 
 def printBoard(board):
     # Print a board
@@ -546,7 +585,8 @@ def playGame(p1, p2, verbose, mode):
             print("\n", "\n")
 
         if countPieces(board, 'x') == 1 and countPieces(board, 'o') == 1:
-            if countKingPieces(board) == 2:
+            count_O, count_X = countKingPieces(board)
+            if count_O + count_X == 2:
                 return (board, countPieces(board, 'x'), countPieces(board, 'o'), "Drawn")
 
     return (board, countPieces(board, 'x'), countPieces(board, 'o'), "Won")
@@ -567,7 +607,7 @@ if __name__ == "__main__":
 
             i = 0
 
-            while i < 10000:
+            while i < 10:
                 print("-------------- TRAINING EPISODE", i, "--------------")
                 result = playGame(p1, p2, True, mode)
 
