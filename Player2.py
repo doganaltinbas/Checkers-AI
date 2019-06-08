@@ -7,9 +7,6 @@ from termcolor import colored
 import sys
 import json
 
-'''
-The code makes use of recursion to implement minimax with alpha beta pruning.
-'''
 
 qtable = dict()
 learning_rate = 5e-1
@@ -131,7 +128,6 @@ def reward(old_board, board):
 
 def update(reward, winner, state, board, color):
     """Updates q-value.
-
 	Update uses recorded observations of performing a
 	certain action in a certain state and continuing optimally from there."""
     # Finding estimated future value by finding max(Q(s', a'))
@@ -146,7 +142,7 @@ def update(reward, winner, state, board, color):
     qtable[state] = ((1 - learning_rate) * qvalue(state)) + (learning_rate * (reward + discount * future_val))
 
 def train(board, color):
-    """Trains by playing against
+    """Trains by playing
 	Each episode is a full game"""
     moves = getAllPossibleMoves(board, color, False)
     if len(moves) == 0:
@@ -179,33 +175,6 @@ def get_history():
     history.append(cumulative_reward)
     history.append(memory)
     return history
-
-def stats():
-    """Agent plays optimally against self with no exploration.
-	Records win/loss/draw distribution."""
-    x_wins = 0
-    o_wins = 0
-    draws = 0
-    episodes = 10000
-    for i in range(episodes):
-        game_active = True
-        while (game_active):
-            states, actions = game.get_open_moves()
-            i = optimal_next(states)
-            winner = game.make_move(actions[i])
-            if winner:
-                if (winner == 'X'):
-                    x_wins += 1
-                elif (winner == 'O'):
-                    o_wins += 1
-                else:
-                    draws += 1
-                game_active = False
-                game.reset()
-    print('    X: {} Draw: {} O: {}'.format((x_wins * 1.0) / episodes,
-                                            (draws * 1.0) / episodes,
-                                            (o_wins * 1.0) / episodes))
-
 
 def save_values(path='data/qtable.json'):
     """Save Q values to json."""

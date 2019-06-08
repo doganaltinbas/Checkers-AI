@@ -637,24 +637,6 @@ if __name__ == "__main__":
             from Player2 import save_values
             save_values()
 
-            from Player2 import get_history
-
-            history = get_history()
-
-            rfig, raxs = plt.subplots(nrows=1, ncols=1)
-            rax_reward1 = raxs
-            rax_reward1.grid()
-
-            rax_reward1.plot(history[0][:100], history[1][:100])
-            rax_reward1.set(ylabel='Cumulative Reward', title='Tic Tac Toe Cumulative Reward Episodes')
-
-
-            rfig.savefig('tictactoe_reward.png')
-
-            plt.show()
-
-
-
         else:
 
             result = playGame(p1, p2, True, mode)

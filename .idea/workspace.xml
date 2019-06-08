@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c57f1cc-aded-4df9-9cdc-0fffe2ac686a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Player1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/qtable.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/qtable.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gamePlay.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamePlay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/getAllPossibleMoves.py" beforeDir="false" afterPath="$PROJECT_DIR$/getAllPossibleMoves.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Player1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            <state relative-caret-position="615">
+              <caret line="41" column="56" lean-forward="true" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -45,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/getAllPossibleMoves.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-112">
-              <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+            <state relative-caret-position="1605">
+              <caret line="109" column="52" selection-start-line="109" selection-start-column="52" selection-end-line="109" selection-end-column="52" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -54,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gamePlay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-14">
-              <caret line="627" column="24" lean-forward="true" selection-start-line="627" selection-start-column="24" selection-end-line="627" selection-end-column="24" />
+            <state relative-caret-position="421">
+              <caret line="456" column="43" selection-start-line="456" selection-start-column="43" selection-end-line="456" selection-end-column="43" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -69,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/lib/python3.7/site-packages/scipy/ndimage/measurements.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
+            <state relative-caret-position="20265">
               <caret line="1358" selection-start-line="1358" selection-end-line="1358" />
             </state>
           </provider>
@@ -85,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Player2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="83" selection-start-line="83" selection-end-line="83" />
+            <state relative-caret-position="540">
+              <caret line="150" column="52" lean-forward="true" selection-start-line="150" selection-start-column="52" selection-end-line="150" selection-end-column="52" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -100,7 +96,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/lib/python3.7/site-packages/numpy/core/_methods.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
+            <state relative-caret-position="405">
               <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
@@ -108,17 +104,13 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/qtable.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-280">
-              <caret column="12" selection-start-column="12" selection-end-column="12" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1365">
+            <state relative-caret-position="5625">
               <caret line="375" selection-start-line="375" selection-end-line="375" />
             </state>
           </provider>
@@ -127,7 +119,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/403569020/numpy/random/mtrand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
+            <state relative-caret-position="33195">
               <caret line="2217" column="4" selection-start-line="2217" selection-start-column="4" selection-end-line="2217" selection-end-column="4" />
             </state>
           </provider>
@@ -137,7 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Q Val</find>
       <find>np</find>
       <find>np.</find>
       <find>center_</find>
@@ -162,10 +153,11 @@
       <find>getallp</find>
       <find>getallpo</find>
       <find>cıy</find>
-      <find>countKingPieces</find>
-      <find>currentcolor</find>
       <find>history</find>
       <find>AI does not have appropriate mevemen</find>
+      <find>countKingPieces</find>
+      <find>currentcolor</find>
+      <find>appr</find>
       <find>printboar</find>
     </findStrings>
     <replaceStrings>
@@ -181,17 +173,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/data/qtable.json" />
-        <option value="$PROJECT_DIR$/Player1.py" />
-        <option value="$PROJECT_DIR$/getAllPossibleMoves.py" />
-        <option value="$PROJECT_DIR$/Player2.py" />
         <option value="$PROJECT_DIR$/gamePlay.py" />
+        <option value="$PROJECT_DIR$/getAllPossibleMoves.py" />
+        <option value="$PROJECT_DIR$/Player1.py" />
+        <option value="$PROJECT_DIR$/Player2.py" />
+        <option value="$PROJECT_DIR$/data/qtable.json" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2031" />
-    <option name="y" value="23" />
+    <option name="x" value="1950" />
+    <option name="y" value="60" />
     <option name="width" value="1726" />
     <option name="height" value="958" />
   </component>
@@ -279,12 +271,13 @@
       <workItem from="1559322165204" duration="11218000" />
       <workItem from="1559366290422" duration="29624000" />
       <workItem from="1559460567819" duration="19732000" />
-      <workItem from="1559546992756" duration="15969000" />
+      <workItem from="1559546992756" duration="16230000" />
+      <workItem from="1559907197243" duration="406000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128105000" />
+    <option name="totallyTimeSpent" value="128772000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -296,16 +289,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2031" y="23" width="1726" height="958" extended-state="0" />
-    <editor active="true" />
+    <frame x="2057" y="264" width="1726" height="958" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14726841" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14904988" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.687067" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" visible="true" weight="0.2852194" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966952" weight="0.2852194" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32910052" />
@@ -419,24 +411,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/403569020/numpy/random/mtrand.py">
+    <entry file="file://$PROJECT_DIR$/getAllPossibleMoves.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="2217" column="4" selection-start-line="2217" selection-start-column="4" selection-end-line="2217" selection-end-column="4" />
+        <state relative-caret-position="1605">
+          <caret line="109" column="52" selection-start-line="109" selection-start-column="52" selection-end-line="109" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/scipy/ndimage/measurements.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20265">
+          <caret line="1358" selection-start-line="1358" selection-end-line="1358" />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/local/lib/python3.7/site-packages/numpy/core/_methods.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
+        <state relative-caret-position="405">
           <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
+        <state relative-caret-position="5625">
           <caret line="375" selection-start-line="375" selection-end-line="375" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/403569020/numpy/random/mtrand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33195">
+          <caret line="2217" column="4" selection-start-line="2217" selection-start-column="4" selection-end-line="2217" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/qtable.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamePlay.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="456" column="43" selection-start-line="456" selection-start-column="43" selection-end-line="456" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Player1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="56" lean-forward="true" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -448,56 +480,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/qtable.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-280">
-          <caret column="12" selection-start-column="12" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/getAllPossibleMoves.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-112">
-          <caret line="103" column="9" lean-forward="true" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Player1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Player2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
+        <state relative-caret-position="540">
+          <caret line="150" column="52" lean-forward="true" selection-start-line="150" selection-start-column="52" selection-end-line="150" selection-end-column="52" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/scipy/ndimage/measurements.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="1358" selection-start-line="1358" selection-end-line="1358" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gamePlay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="627" column="24" lean-forward="true" selection-start-line="627" selection-start-column="24" selection-end-line="627" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
