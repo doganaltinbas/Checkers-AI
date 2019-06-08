@@ -168,34 +168,6 @@ def save_values(path='data/qtable.json'):
     with open(path, 'w') as out:
         json.dump(qtable, out)
 
-
-def demo(first=True):
-    """Demo so users can play against trained agent."""
-    game.print_instructions()
-    # Agent goes first
-    game_active = True
-    while game_active:
-        winner = None
-        if first:
-            states, actions = game.get_open_moves()
-            i = optimal_next(states)
-            winner = game.make_move(actions[i])
-            game.print_board()
-            first = not first
-        elif not first:
-            print('Select move:')
-            p = game.read_input()
-            if game.is_valid_move(p):
-                winner = game.make_move(p)
-                game.print_board()
-                first = not first
-            else:
-                print('Invalid move.')
-        if winner:
-            print('Winner: {}'.format(winner))
-            game_active = False
-    game.reset()
-
 def nextMove(board, color, mode):
     print("---------------------------------- ", colored(color, 'yellow') + "\'s", "turn","----------------------------------------", "\n")
     if mode == "train":
@@ -207,4 +179,5 @@ def nextMove(board, color, mode):
         for i, val in enumerate(states):
             print("state:", val, "\naction:", actions[i])
         i = optimal_next(states)
+        print(colored("AI selected move:", 'yellow'), actions[i])
         return actions[i]
