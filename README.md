@@ -1,32 +1,16 @@
 # Checkers-game
+
+A Human-AI Checkers game with custom rules.
+
 An set of checkers playing AI agents, one of them with alpha-beta pruning.
 
 The game execution starts by calling using the below command from console:
 
-python gamePlay.py {-v} {-t time} player1 player2
+python gamePlay.py 
 
--v is to enable verbose.
--t time is to specify maximum time available for each player.
+Player1 refers human player whereas Player2 refers AI Agent.
 
-player1 and player2 can be any of the below:
+Player1 class enables you to choose moves.
 
-randomPlay
+Player2 is an AI agent that will randomly make a move.
 
-simpleGreedy
-
-humanPlay
-
-vpalakur
-
-vpalakur-1
-
-
-randomPlay is an AI agent that will randomly make a move.
-
-simpleGreedy is an AI agent that will use a simple greedy approach and try to win the game.
-
-humanPlay enables you to choose moves.
-
-vpalakur is an AI agent which uses minimax with alpha-beta pruning to choose moves.
-
-vpalakur-1 is built on top of vpalakur and changes its heuristic dynamically based on the remaining time.

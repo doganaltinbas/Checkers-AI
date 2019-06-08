@@ -36,15 +36,6 @@ def argmax(values):
             max_indices.append(i)
     return np.random.choice(max_indices)
 
-def argmin(values):
-    """Returns index of min value."""
-    vmin = np.min(values)
-    min_indices = []
-    for i, v in enumerate(values):
-        if v == vmin:
-            min_indices.append(i)
-    return np.random.choice(min_indices)
-
 def step(board, color, verbose= True):
     """Agent makes one step.
 
@@ -93,12 +84,8 @@ def optimal_next(states):
 	"""
     values = [qvalue(s) for s in states]
     # Exploit
-    #if game.player == player:
-        # Optimal move is max
     return argmax(values)
-    #else:
-        # Optimal move is min
-       #return argmin(values)
+
 
 def reward(old_board, board):
         """Calculates reward for different end game conditions.
