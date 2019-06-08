@@ -25,17 +25,12 @@ def isCapturePossibleFromPosition(board, x, y, color):
         i = 5
         while i >= 2:
             if canKingMoveToPosition(board, x, y, x - i, y - i, "nw"):
-                print("from",x,y,"to",x-i,y-i)
                 return True
             if canKingMoveToPosition(board, x, y, x - i, y + i, "ne"):
-                print("from",x,y,"to",x-i,y+i)
                 return True
             if canKingMoveToPosition(board, x, y, x + i, y - i, "sw"):
-                print("from",x,y,"to",x+i,y-i)
                 return True
             if canKingMoveToPosition(board, x, y, x + i, y + i, "se"):
-
-                print("from",x,y,"to",x+i,y+i)
                 return True
             i = i - 1
         return False
@@ -512,11 +507,15 @@ def center_of_mass(board):
     array_of_o = array_of_o.astype(int)
     array_of_x = array_of_x.astype(int)
 
-    center_o = ndimage.measurements.center_of_mass(array_of_o)
-    center_x = ndimage.measurements.center_of_mass(array_of_x)
+    if countPieces(board, 'o') == 0:
+        center_o = (0, 0)
+    else:
+        center_o = ndimage.measurements.center_of_mass(array_of_o)
 
-    if math.isnan(center_x[0]):
-        center_x = (0, 1)
+    if countPieces(board, 'x') == 0:
+        center_x = (0, 0)
+    else:
+        center_x = ndimage.measurements.center_of_mass(array_of_x)
 
     return np.int(center_o[0]), np.int(center_x[0])
 
@@ -598,36 +597,49 @@ if __name__ == "__main__":
     while True:
         beginning = input("Who is going to start?	\"1\" for Player1 \"2\" for Player2")
         mode = input("Is it \"train\" or \"game\"")
+
         exec("from Player" + str(beginning) + " import nextMove")
         p1 = nextMove
         p1_str = "Player" + str(beginning)
-        exec("from Player" + str(int(beginning)%2 + 1) + " import nextMove")
+        exec("from Player" + str(int(beginning) % 2 + 1) + " import nextMove")
         p2 = nextMove
-        p2_str = "Player" + str(int(beginning)%2 + 1)
+        p2_str = "Player" + str(int(beginning) % 2 + 1)
 
         if mode == "train":
 
             i = 0
+            iter = 10000
+            conf_changed = False
 
-            while i < 100:
-                if i % 10 == 0:
+            while i < iter:
+                if i % 100 == 0:
                     print("-------------- TRAINING EPISODE", i, "--------------")
-                result = playGame(p1, p2, True, mode)
 
-                printBoard(result[0])
+                if i > iter/2 and not conf_changed:
+                    exec("from Player" + str(int(beginning) % 2 + 1) + " import nextMove")
+                    p1 = nextMove
+                    p1_str = "Player" + str(int(beginning) % 2 + 1)
+                    exec("from Player" + str(beginning) + " import nextMove")
+                    p2 = nextMove
+                    p2_str = "Player" + str(beginning)
+                    conf_changed = True
 
-                if result[3] == "Drawn":
-                    if result[1] > result[2]:
-                        print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-                    elif result[1] < result[2]:
-                        print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
-                    else:
-                        print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-                elif result[3] == "Won":
-                    if result[1] > result[2]:
-                        print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
-                    elif result[1] < result[2]:
-                        print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+                result = playGame(p1, p2, False, mode)
+
+                #printBoard(result[0])
+
+                #if result[3] == "Drawn":
+                  #  if result[1] > result[2]:
+                 #       print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                   # elif result[1] < result[2]:
+                  #      print("Ran Out Of Moves :: %s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
+                   # else:
+                   #     print("Ran Out Of Moves :: TIE %s, %s, (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+               # elif result[3] == "Won":
+                #    if result[1] > result[2]:
+                 #       print("%s Wins %s Loses (%d to %d)" % (p1_str, p2_str, result[1], result[2]))
+                 #   elif result[1] < result[2]:
+                  #      print("%s Wins %s Loses (%d to %d)" % (p2_str, p1_str, result[2], result[1]))
 
                 from Player2 import reset_values
                 reset_values()

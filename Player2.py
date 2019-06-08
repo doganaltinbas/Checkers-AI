@@ -89,11 +89,11 @@ def optimal_next(states):
 
 def reward(old_board, board):
         """Calculates reward for different end game conditions.
-        - win is 1.0
-        - loss is -1.0
+        - win is 9.0
+        - loss is -9.0
         - draw and unfinished is calculate by:
          Format of returned data:
-         (own_pieces, opp_pieces, own_kings, opp_kings, own_edges, own_vert_center_mass, opp_vert_center_mass)
+         (own_pieces, opp_pieces, own_kings, opp_kings, opp_vert_center_mass)
         """
         winner, count_o, count_x = gamePlay.currentCountPieces(board)
 
@@ -154,14 +154,6 @@ def reset_values():
     global episode_reward
     print("resetted",episode_reward)
     episode_reward = 0
-
-
-def get_history():
-    global history
-    history.append(100)
-    history.append(cumulative_reward)
-    history.append(memory)
-    return history
 
 def save_values(path='data/qtable.json'):
     """Save Q values to json."""
